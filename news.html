@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+    <!-- title -->
+    <title>Noticias</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="https://empresariosencolombia.com/wp-content/uploads/2019/03/gruponutresalogo-1024x422.jpg">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="assets/css/owl.carousel.css">
+    <!-- magnific popup -->
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <!-- animate css -->
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <!-- mean menu css -->
+    <link rel="stylesheet" href="assets/css/meanmenu.min.css">
+    <!-- main style -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <!-- responsive -->
+    <link rel="stylesheet" href="assets/css/responsive.css">
+
+</head>
+<body>
+
+<!--PreLoader-->
+<div class="loader">
+    <div class="loader-inner">
+        <div class="circle"></div>
+    </div>
+</div>
+<!--PreLoader Ends-->
+
+<!-- header -->
+<div class="top-header-area" id="sticker">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 text-center">
+                <div class="main-menu-wrap">
+                    <!-- logo -->
+                    <div class="site-logo">
+                        <a href="index.html">
+                            <img src="https://gruponutresa.com/wp-content/themes/grupo-nutresa/library/images/logo-grupo-nutresa-informe-dos.png" alt="">
+                        </a>
+                    </div>
+                    <!-- logo -->
+
+                    <!-- menu start -->
+                    <nav class="main-menu">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">Acerca</a></li>
+                            <li><a href="news.html">Noticias</a></li>
+                            <li><a href="contact.html">Contacto</a></li>
+                            <li><a href="shop.html">Tienda</a>
+                                <ul class="sub-menu">
+                                    <li><a href="shop.html">Tienda</a></li>
+                                    <li><a href="cart.html">Carrito</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="header-icons">
+                                    <a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                                    <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                    <div class="mobile-menu"></div>
+                    <!-- menu end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end header -->
+
+<!-- area de busqueda -->
+<div class="search-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="close-btn"><i class="fas fa-window-close"></i></span>
+                <div class="search-bar">
+                    <div class="search-bar-tablecell">
+                        <form id="search">
+                            <input type="search" name="word" placeholder="Palabra Clave" required>
+                            <br>
+                            <section id="words" class="grid-fluid"></section>
+                            <input type="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<aside class="error"></aside>
+<template id="word-template">
+    <article class="word">
+        <h3></h3>
+        <div></div>
+        <a></a>
+    </article>
+</template>
+<script>
+    const d = document,
+        $words = d.getElementById("words"),
+        $template = d.getElementById("word-template").content,
+        $fragment = d.createDocumentFragment(),
+        $form = d.getElementById("search"),
+        $error = d.querySelector(".error");
+
+
+
+    $form.addEventListener("submit", async e => {
+        e.preventDefault();
+        try{
+
+            let word = e.target.word.value.toLowerCase(),
+                $wordTemplate = "",
+
+                wordAPI = `https://api.serpwow.com/live/search?api_key=B7FEA6A4DA0C4059A370B2FA22AE0CB3&q=${word}`,
+                wordFetch = await fetch(wordAPI),
+
+                wordData = await wordFetch.json();
+                console.log(wordAPI,wordFetch,wordData);
+
+
+
+                if(wordData === null){
+                    $words.innerHTML = `<h2>No existe el interprete <mark>${word}</mark></h2>`
+                }else{
+                    wordData.forEach(el =>{
+                      $template.querySelector("h3").textContent=el.organic_results.title;
+                      let $clone =d.importNode($template,true);
+                      $fragment.appendChild($clone);
+                    });
+                    $shows.appendChild($fragment);
+                }
+
+        }catch(err){
+            console.log(err);
+        }
+    })
+</script>
+<!-- fin de area de busqueda -->
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Información</p>
+                    <h1>Artículo de Noticias</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb section -->
+
+<!-- latest news -->
+<div class="latest-news mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <!--Noticia 1-->
+            <div class="col-lg-4 col-md-6">
+                <div class="single-latest-news">
+                    <div class="product-image">
+                        <img src="https://gruponutresa.com/wp-content/uploads/2021/09/Yearbook2022WebESP.jpg" alt="">
+                    </div>
+                    <div class="news-text-box">
+                        <h3>Grupo NUtresa, categoría Oro en el Anuario de Sostenibilidad S&P Global 2022</h3>
+                        <p class="blog-meta">
+                            <span class="author"><i class="fas fa-user"></i> Prensa</span>
+                            <span class="date"><i class="fas fa-calendar"></i> 01 Febrero, 2022</span>
+                        </p>
+                        <p class="excerpt">Esta es la segunda vez consecutiva que la Organización es distinguida con la
+                            categoría Oro en el anuario de sostenibilidad de S&P, reconocimiento que obtiene
+                            luego de registrar en noviembre de 2021 el mejor desempeño de la industria de
+                            alimentos en los Índices de Sostenibilidad de Dow Jones, de los cuales hace parte
+                            hace once años.</p>
+                        <a class="read-more-btn">leer mas <i class="fas fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!--Noticia 2-->
+            <div class="col-lg-4 col-md-6">
+                <div class="single-latest-news">
+                    <div class="product-image">
+                        <img src="https://gruponutresa.com/wp-content/uploads/2022/01/Cecodes25v3.jpg"  alt="">
+                    </div>
+                    <div class="news-text-box">
+                        <h3>Grupo Nutresa, reconocido por sus compromisos de reducción de GEI</h3>
+                        <p class="blog-meta">
+                            <span class="author"><i class="fas fa-user"></i> Prensa</span>
+                            <span class="date"><i class="fas fa-calendar"></i> 21 Enero, 2022</span>
+                        </p>
+                        <p class="excerpt">CECODES entregó a Nutresa el Reconocimiento al Compromiso Empresarial por la Sostenibilidad bajo el criterio de "Cero Emisiones Netas de Gases de Efecto Invernadero".</p>
+                        <a class="read-more-btn">leer mas <i class="fas fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!--Noticia 3-->
+            <div class="col-lg-4 col-md-6">
+                <div class="single-latest-news">
+                    <div class="product-image">
+                        <img src="https://gruponutresa.com/wp-content/uploads/2016/10/Sala-de-Juntas-Home.jpg" alt="">
+                    </div>
+                    <div class="news-text-box">
+                        <h3>Comunicado de Grupo Nutresa a la opinión pública</h3>
+                        <p class="blog-meta">
+                            <span class="author"><i class="fas fa-user"></i> Prensa</span>
+                            <span class="date"><i class="fas fa-calendar"></i> 10 Enero, 2022</span>
+                        </p>
+                        <p class="excerpt">Información frente a las declaraciones del Alcalde de Medellín, Daniel Quintero Calle, en entrevista publicada por Semana el pasado 8 de enero de 2022.</p>
+                        <a class="read-more-btn">leer mas <i class="fas fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!--Noticia 4-->
+            <div class="col-lg-4 col-md-6">
+                <div class="single-latest-news">
+                    <div class="product-image">
+                        <img src="data:image/jpeg;base64,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" alt="">
+                    </div>
+                    <div class="news-text-box">
+                        <h3>Grupo Nutresa, ganador del Premio Nacional de Exportaciones 2021</h3>
+                        <p class="blog-meta">
+                            <span class="author"><i class="fas fa-user"></i> Prensa</span>
+                            <span class="date"><i class="fas fa-calendar"></i> 13 Diciembre, 2021</span>
+                        </p>
+                        <p class="excerpt">Grupo Nutresa y su Negocio de Cafés obtuvieron el reconocimiento en la Categoría Gran Empresa de Bienes, distinción anual de Analdex y ProColombia.</p>
+                        <a class="read-more-btn">leer mas <i class="fas fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div class="pagination-wrap">
+                            <ul>
+                                <li><a href="#">Anterior</a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a class="active" href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">Siguiente</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end latest news -->
+
+<!-- logo carousel -->
+<div class="logo-carousel-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="logo-carousel-inner">
+                    <div class="single-logo-item">
+                        <img src="https://pbs.twimg.com/profile_images/1121812840522895361/pOOh-E1i_400x400.jpg" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img src="https://manabiexpress.com/img/m/18.jpg" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img src="https://www.chocolisto.com/wp-content/themes/chocolisto-website/assets/images/logo-chocolisto.png" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img src="https://cdn.worldvectorlogo.com/logos/crem-helado.svg" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img src="https://www.chocolatecorona.com/wp-content/uploads/2018/10/logo-corona-nuevo.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end logo carousel -->
+
+<!-- footer -->
+<div class="footer-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-box about-widget">
+                    <h2 class="widget-title">Acerca de nosotros</h2>
+                    <justify>
+                        <p>Fundada en 1920, cuenta en la actualidad con cerca de 46.000 colaboradores y opera a través de ocho unidades de negocio: Cárnicos, Galletas, Chocolates, Tresmontes Lucchetti -TMLUC-, Cafés, Alimentos al Consumidor, Helados y Pastas.</p>
+                    </justify>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-box get-in-touch">
+                    <h2 class="widget-title">Contacto</h2>
+                    <ul>
+                        <li>Cra 52 #2124 a 246, Medellín, Antioquia, Colombia</li>
+                        <li>lineaetica@gruponutresa.com</li>
+                        <li>(+57) 604 4028000</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-box pages">
+                    <h2 class="widget-title">Paginas</h2>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">Acerca</a></li>
+                        <li><a href="services.html">Tienda</a></li>
+                        <li><a href="news.html">Noticias</a></li>
+                        <li><a href="contact.html">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-box subscribe">
+                    <h2 class="widget-title">Subscribirse</h2>
+                    <p>Suscríbete a nuestra lista de correo para recibir las últimas actualizaciones.</p>
+                    <form action="index.html">
+                        <input type="email" placeholder="Email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end footer -->
+
+<!-- copyright -->
+<div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.</p>
+            </div>
+            <div class="col-lg-6 text-right col-md-12">
+                <div class="social-icons">
+                    <ul>
+                        <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end copyright -->
+
+<!-- jquery -->
+<script src="assets/js/jquery-1.11.3.min.js"></script>
+<!-- bootstrap -->
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<!-- count down -->
+<script src="assets/js/jquery.countdown.js"></script>
+<!-- isotope -->
+<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+<!-- waypoints -->
+<script src="assets/js/waypoints.js"></script>
+<!-- owl carousel -->
+<script src="assets/js/owl.carousel.min.js"></script>
+<!-- magnific popup -->
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<!-- mean menu -->
+<script src="assets/js/jquery.meanmenu.min.js"></script>
+<!-- sticker js -->
+<script src="assets/js/sticker.js"></script>
+<!-- main js -->
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>
