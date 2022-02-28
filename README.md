@@ -1,4 +1,4 @@
-# Practica-6
+# Practica-4
 
 Consta de consumir una API REST y visualizar en la pagina web de la empresa Nutresa de Colombia.
 
@@ -13,4 +13,4 @@ En cada seccion de la pagina encontraras un icono de busqueda, en el cual te pid
 La api se agrego a la seccion de cada codigo HTML que dice  "area de busqueda".
 
 ## Link
-https://jeni98.github.io/Practica-6/
+https://jeni98.github.io/Practica-4/
